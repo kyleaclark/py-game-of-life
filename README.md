@@ -28,9 +28,10 @@ Note: Instructions are specific to macOS. Steps may vary.
 #### Optional: PyCharm Setup
 
 1. Open PyCharm Preferences
-2. Open Project Interpeter
-3. Add existing Virtualenv Environment e.g. `/Users/<username>/Library/Caches/pypoetry/virtualenvs/<poetry-name>/bin/python`
+2. Open Project Interpeter > Add existing Virtualenv Environment e.g. `/Users/<username>/Library/Caches/pypoetry/virtualenvs/<poetry-name>/bin/python`
+3. Open Tools > Python Integrated Tools > Default test runner: pytest
 4. Run `app/main.py`
+5. Run `tests`
 
 ___
 
