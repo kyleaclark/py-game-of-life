@@ -1,4 +1,3 @@
-from itertools import chain
 from random import randint
 from typing import List
 
@@ -9,29 +8,15 @@ __author__ = 'kyleaclark'
 
 class Board2d:
 
-    def __init__(self, num_rows: int, num_cols: int, pre_seeded_values: List[int] = None):
+    def __init__(self, num_rows: int, num_cols: int, pre_seeded_values: List[List[int]] = None):
         self._num_rows = num_rows
         self._num_cols = num_cols
         self._grid = self._generate_grid(num_rows, num_cols)
         self._seed_grid_cells(pre_seeded_values)
 
     @property
-    def grid_cells_flattened(self) -> List[Cell]:
-        return list(chain.from_iterable(self._grid))
-
-    @property
-    def grid_cell_values(self) -> List[int]:
-        return [cell.state for cell in self.grid_cells_flattened]
-
-    def draw_board(self):
-        print('')
-        for row in self._grid:
-            for col in row:
-                print(col.get_text_character(), end='')
-
-            print('')
-
-        print('')
+    def grid_cell_values(self) -> List[List[int]]:
+        return [[cell.state for cell in row] for row in self._grid]
 
     def update_board_cells(self):
         alive_cells = []
@@ -55,23 +40,17 @@ class Board2d:
         for cell in dead_cells:
             cell.set_dead()
 
-        return alive_cells, dead_cells
-
-    def _sum_living_neighbors(self, row_idx: int, col_idx: int) -> int:
+    def _sum_living_neighbors(self, cell_row_idx: int, cell_col_idx: int) -> int:
         result = 0
-        for neighbour_row in range(row_idx-1, row_idx+2):
-            for neighbor_col in range(col_idx-1, col_idx+2):
+        for neighbour_row_idx in range(cell_row_idx - 1, cell_row_idx + 2):
+            if self._is_invalid_row(neighbour_row_idx):
+                continue
 
-                if neighbour_row == row_idx and neighbor_col == col_idx:
-                    valid_neighbour = False
-                elif neighbour_row < 0 or neighbour_row >= self._num_rows:
-                    valid_neighbour = False
-                elif neighbor_col < 0 or neighbor_col >= self._num_cols:
-                    valid_neighbour = False
-                else:
-                    valid_neighbour = True
+            for neighbor_col_idx in range(cell_col_idx - 1, cell_col_idx + 2):
+                if self._is_invalid_col(cell_row_idx, cell_col_idx, neighbour_row_idx, neighbor_col_idx):
+                    continue
 
-                if valid_neighbour and self._get_cell(neighbour_row, neighbor_col).is_alive():
+                if self._get_cell(neighbour_row_idx, neighbor_col_idx).is_alive():
                     result += 1
 
         return result
@@ -79,12 +58,26 @@ class Board2d:
     def _get_cell(self, row_idx: int, col_idx) -> Cell:
         return self._grid[row_idx][col_idx]
 
-    def _seed_grid_cells(self, pre_seeded_values: List[int] = None):
+    def _is_invalid_row(self, neighbor_row_idx: int):
+        return neighbor_row_idx < 0 or neighbor_row_idx >= self._num_rows
+
+    def _is_invalid_col(self,
+                        cell_row_idx: int,
+                        cell_col_idx: int,
+                        neighbor_row_idx: int,
+                        neighbor_col_idx: int) -> bool:
+        result = ((neighbor_col_idx < 0) or
+                  (neighbor_col_idx >= self._num_cols) or
+                  (cell_row_idx == neighbor_row_idx and cell_col_idx == neighbor_col_idx))
+
+        return result
+
+    def _seed_grid_cells(self, pre_seeded_values: List[List[int]] = None):
         for row_idx, cells in enumerate(self._grid):
             for col_idx, cell in enumerate(cells):
                 try:
-                    seed_idx = (row_idx * self._num_cols) + col_idx
-                    seed_value = pre_seeded_values[seed_idx] if pre_seeded_values else randint(0, 2)
+                    #seed_idx = (row_idx * self._num_cols) + col_idx
+                    seed_value = pre_seeded_values[row_idx][col_idx] if pre_seeded_values else randint(0, 2)
                 except IndexError:
                     seed_value = randint(0, 2)  # 33% chance
 

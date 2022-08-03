@@ -1,6 +1,6 @@
 from itertools import chain
 
-from app.components.board import Board
+from app.components.board1d import Board1d
 
 __author__ = 'kyleaclark'
 
@@ -13,7 +13,7 @@ def test_board_grid_cells_4x4_empty():
          [0, 0, 0, 0],
          [0, 0, 0, 0]]
     ))
-    board = Board(num_rows=4, num_cols=4, pre_seeded_values=pre_seeded_values)
+    board = Board1d(num_rows=4, num_cols=4, pre_seeded_values=pre_seeded_values)
 
     # act
     board.update_board_cells()
@@ -36,7 +36,7 @@ def test_board_grid_cells_4x4_one():
          [0, 0, 1, 0],
          [0, 0, 0, 0]]
     ))
-    board = Board(num_rows=4, num_cols=4, pre_seeded_values=pre_seeded_values)
+    board = Board1d(num_rows=4, num_cols=4, pre_seeded_values=pre_seeded_values)
 
     # act
     board.update_board_cells()
@@ -60,7 +60,7 @@ def test_board_grid_cells_4x4_two():
          [0, 0, 1, 0],
          [0, 0, 0, 0]]
     ))
-    board = Board(num_rows=4, num_cols=4, pre_seeded_values=pre_seeded_values)
+    board = Board1d(num_rows=4, num_cols=4, pre_seeded_values=pre_seeded_values)
 
     # act
     board.update_board_cells()
@@ -83,7 +83,7 @@ def test_board_grid_cells_4x4_many():
          [0, 1, 0, 0],
          [0, 0, 0, 0]]
     ))
-    board = Board(num_rows=4, num_cols=4, pre_seeded_values=pre_seeded_values)
+    board = Board1d(num_rows=4, num_cols=4, pre_seeded_values=pre_seeded_values)
 
     # act
     board.update_board_cells()
@@ -107,7 +107,7 @@ def test_board_grid_cells_4x4_many_multi_generation():
          [0, 1, 1, 0],
          [0, 0, 0, 0]]
     ))
-    board = Board(num_rows=4, num_cols=4, pre_seeded_values=pre_seeded_values)
+    board = Board1d(num_rows=4, num_cols=4, pre_seeded_values=pre_seeded_values)
 
     # act
     board.update_board_cells()
@@ -132,7 +132,7 @@ def test_board_grid_cells_4x4_many_multi_generation_infinite():
          [0, 0, 0, 1]]
     ))
 
-    board = Board(num_rows=4, num_cols=4, pre_seeded_values=pre_seeded_values)
+    board = Board1d(num_rows=4, num_cols=4, pre_seeded_values=pre_seeded_values)
 
     # act + assert
     expected_cell_values = list(chain.from_iterable(
