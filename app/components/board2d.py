@@ -1,3 +1,5 @@
+from itertools import chain
+
 from random import randint
 from typing import List
 
@@ -15,8 +17,16 @@ class Board2d:
         self._seed_grid_cells(pre_seeded_values)
 
     @property
+    def grid_cells_flattened(self) -> List[Cell]:
+        return list(chain.from_iterable(self._grid))
+
+    @property
     def grid_cell_values(self) -> List[List[int]]:
         return [[cell.state for cell in row] for row in self._grid]
+
+    @property
+    def grid_cell_values_flattened(self) -> List[int]:
+        return list(chain.from_iterable(self.grid_cell_values))
 
     def update_board_cells(self):
         alive_cells = []
@@ -24,14 +34,15 @@ class Board2d:
 
         for row in range(len(self._grid)):
             for col in range(len(self._grid[row])):
-                living_neighbor_count = self._sum_living_neighbors(row, col)
-
                 cell = self._get_cell(row, col)
 
+                alive_neighbors = self._sum_living_neighbors(row, col)
+                cell.alive_neighbors = alive_neighbors
+
                 if cell.is_alive():
-                    if living_neighbor_count < 2 or living_neighbor_count > 3:
+                    if alive_neighbors < 2 or alive_neighbors > 3:
                         dead_cells.append(cell)
-                elif living_neighbor_count == 3:
+                elif alive_neighbors == 3:
                     alive_cells.append(cell)
 
         for cell in alive_cells:
@@ -79,7 +90,7 @@ class Board2d:
                     #seed_idx = (row_idx * self._num_cols) + col_idx
                     seed_value = pre_seeded_values[row_idx][col_idx] if pre_seeded_values else randint(0, 2)
                 except IndexError:
-                    seed_value = randint(0, 2)  # 33% chance
+                    seed_value = randint(0, 1)  # 50% chance
 
                 if seed_value == 1:
                     cell.set_alive()

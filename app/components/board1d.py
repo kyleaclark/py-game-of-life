@@ -27,12 +27,13 @@ class Board1d:
         dead_cells = []
 
         for idx, cell in enumerate(self._grid):
-            living_neighbor_count = self._sum_living_neighbors(idx)
+            alive_neighbors = self._sum_living_neighbors(idx)
+            cell.alive_neighbors = alive_neighbors
 
             if cell.is_alive():
-                if living_neighbor_count < 2 or living_neighbor_count > 3:
+                if alive_neighbors < 2 or alive_neighbors > 3:
                     dead_cells.append(cell)
-            elif living_neighbor_count == 3:
+            elif alive_neighbors == 3:
                 alive_cells.append(cell)
 
         for cell in alive_cells:

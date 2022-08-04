@@ -27,6 +27,7 @@ def run_interactive_game_loop():
 
 def run_simulation_game_loop():
     board = _create_2d_board()
+    board.update_board_cells()
     animate_board_grid(board)
 
 
