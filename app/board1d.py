@@ -2,7 +2,7 @@ from math import floor
 from random import randint
 from typing import List
 
-from app.components.cell import Cell
+from app.cell import Cell
 
 __author__ = 'kyleaclark'
 

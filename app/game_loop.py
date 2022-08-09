@@ -1,8 +1,9 @@
-from app.components.board1d import Board1d
-from app.components.board2d import Board2d
-from app.components.display import animate_board_grid, draw_board_grid
-from app.components.user_input import get_simulate_action_key, get_restart_action_key, get_quit_action_key
-from app.components.user_input import request_game_action, request_board_size
+from app.animation import Animation
+from app.board1d import Board1d
+from app.board import Board
+from app.display import draw_board_grid
+from app.user_input import get_simulate_action_key, get_restart_action_key, get_quit_action_key
+from app.user_input import request_game_action, request_board_size
 
 __author__ = 'kyleaclark'
 
@@ -26,20 +27,13 @@ def run_interactive_game_loop():
 
 
 def run_simulation_game_loop():
-    board = _create_2d_board()
-    board.update_board_cells()
-    animate_board_grid(board)
+    board = Board(num_rows=50, num_cols=50)
+    animation = Animation(board)
+    animation.animate_board_grid()
 
 
 def _create_1d_board() -> Board1d:
     board_rows, board_columns = request_board_size()
     result = Board1d(board_rows, board_columns)
-
-    return result
-
-
-def _create_2d_board() -> Board2d:
-    board_rows, board_columns = 50, 50 # TODO: read command line arg vars
-    result = Board2d(board_rows, board_columns)
 
     return result

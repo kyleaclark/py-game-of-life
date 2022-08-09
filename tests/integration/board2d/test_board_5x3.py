@@ -1,4 +1,4 @@
-from app.components.board2d import Board2d
+from app.board import Board
 
 __author__ = 'kyleaclark'
 
@@ -12,7 +12,7 @@ def test_board_grid_cells_5x3_empty():
          [0, 0, 0],
          [0, 0, 0]]
     )
-    board = Board2d(num_rows=5, num_cols=3, pre_seeded_values=pre_seeded_values)
+    board = Board(num_rows=5, num_cols=3, pre_seeded_values=pre_seeded_values)
 
     # act
     board.update_board_cells()
@@ -37,7 +37,7 @@ def test_board_grid_cells_5x3_one():
          [0, 0, 0],
          [0, 0, 0]]
     )
-    board = Board2d(num_rows=5, num_cols=3, pre_seeded_values=pre_seeded_values)
+    board = Board(num_rows=5, num_cols=3, pre_seeded_values=pre_seeded_values)
 
     # act
     board.update_board_cells()
@@ -63,7 +63,7 @@ def test_board_grid_cells_5x3_two():
          [0, 0, 0],
          [0, 0, 0]]
     )
-    board = Board2d(num_rows=5, num_cols=3, pre_seeded_values=pre_seeded_values)
+    board = Board(num_rows=5, num_cols=3, pre_seeded_values=pre_seeded_values)
 
     # act
     board.update_board_cells()
@@ -88,7 +88,7 @@ def test_board_grid_cells_5x3_many():
          [0, 0, 0],
          [0, 0, 0]]
     )
-    board = Board2d(num_rows=5, num_cols=3, pre_seeded_values=pre_seeded_values)
+    board = Board(num_rows=5, num_cols=3, pre_seeded_values=pre_seeded_values)
 
     # act
     board.update_board_cells()
@@ -115,7 +115,7 @@ def test_board_grid_cells_5x3_many_multi_generation_infinite():
          [0, 0, 0]]
     )
 
-    board = Board2d(num_rows=5, num_cols=3, pre_seeded_values=pre_seeded_values)
+    board = Board(num_rows=5, num_cols=3, pre_seeded_values=pre_seeded_values)
 
     # act
     board.update_board_cells()
@@ -150,7 +150,7 @@ def test_board_grid_cells_5x3_many_multi_generation_rotation():
          [0, 0, 0]]
     )
 
-    board = Board2d(num_rows=5, num_cols=3, pre_seeded_values=pre_seeded_values)
+    board = Board(num_rows=5, num_cols=3, pre_seeded_values=pre_seeded_values)
 
     # act + assert
     expected_cell_values = (

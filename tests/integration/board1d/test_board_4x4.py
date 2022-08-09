@@ -1,6 +1,6 @@
 from itertools import chain
 
-from app.components.board1d import Board1d
+from app.board1d import Board1d
 
 __author__ = 'kyleaclark'
 

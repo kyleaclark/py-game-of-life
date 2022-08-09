@@ -1,4 +1,4 @@
-from app.components.game_loop import run_interactive_game_loop, run_simulation_game_loop
+from app.game_loop import run_interactive_game_loop, run_simulation_game_loop
 
 __author__ = 'kyleaclark'
 

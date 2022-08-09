@@ -22,6 +22,3 @@ class Cell:
 
     def set_live_neighbor_count(self, neighbors: int):
         self._live_neighbor_count = neighbors
-
-    def get_text_character(self) -> str:
-        return ' 1 ' if self.is_alive() else ' . '

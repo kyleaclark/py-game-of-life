@@ -3,18 +3,19 @@ from itertools import chain
 from random import randint
 from typing import List
 
-from app.components.cell import Cell
+from app.cell import Cell
 
 __author__ = 'kyleaclark'
 
 
-class Board2d:
+class Board:
 
     def __init__(self, num_rows: int, num_cols: int, pre_seeded_values: List[List[int]] = None):
         self._num_rows = num_rows
         self._num_cols = num_cols
         self._grid = self._generate_grid(num_rows, num_cols)
         self._seed_grid_cells(pre_seeded_values)
+        self._update_alive_neighbors()
 
     @property
     def grid_cells_flattened(self) -> List[Cell]:
@@ -37,7 +38,6 @@ class Board2d:
                 cell = self._get_cell(row, col)
 
                 alive_neighbors = self._sum_living_neighbors(row, col)
-                cell.alive_neighbors = alive_neighbors
 
                 if cell.is_alive():
                     if alive_neighbors < 2 or alive_neighbors > 3:
@@ -50,6 +50,8 @@ class Board2d:
 
         for cell in dead_cells:
             cell.set_dead()
+
+        self._update_alive_neighbors()
 
     def _sum_living_neighbors(self, cell_row_idx: int, cell_col_idx: int) -> int:
         result = 0
@@ -65,6 +67,12 @@ class Board2d:
                     result += 1
 
         return result
+
+    def _update_alive_neighbors(self):
+        for row in range(len(self._grid)):
+            for col in range(len(self._grid[row])):
+                cell = self._get_cell(row, col)
+                cell.alive_neighbors = self._sum_living_neighbors(row, col)
 
     def _get_cell(self, row_idx: int, col_idx) -> Cell:
         return self._grid[row_idx][col_idx]

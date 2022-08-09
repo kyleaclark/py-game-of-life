@@ -1,4 +1,4 @@
-from app.components.board2d import Board2d
+from app.board import Board
 
 __author__ = 'kyleaclark'
 
@@ -10,7 +10,7 @@ def test_board_grid_cells_3x5_empty():
          [0, 0, 0, 0, 0],
          [0, 0, 0, 0, 0]]
     )
-    board = Board2d(num_rows=3, num_cols=5, pre_seeded_values=pre_seeded_values)
+    board = Board(num_rows=3, num_cols=5, pre_seeded_values=pre_seeded_values)
 
     # act
     board.update_board_cells()
@@ -31,7 +31,7 @@ def test_board_grid_cells_3x5_one():
          [0, 0, 1, 0, 0],
          [0, 0, 0, 0, 0]]
     )
-    board = Board2d(num_rows=3, num_cols=5, pre_seeded_values=pre_seeded_values)
+    board = Board(num_rows=3, num_cols=5, pre_seeded_values=pre_seeded_values)
 
     # act
     board.update_board_cells()
@@ -53,7 +53,7 @@ def test_board_grid_cells_3x5_two():
          [0, 1, 0, 1, 0],
          [0, 0, 0, 0, 0]]
     )
-    board = Board2d(num_rows=3, num_cols=5, pre_seeded_values=pre_seeded_values)
+    board = Board(num_rows=3, num_cols=5, pre_seeded_values=pre_seeded_values)
 
     # act
     board.update_board_cells()
@@ -74,7 +74,7 @@ def test_board_grid_cells_3x5_many():
          [0, 0, 1, 0, 0],
          [0, 1, 0, 0, 0]]
     )
-    board = Board2d(num_rows=3, num_cols=5, pre_seeded_values=pre_seeded_values)
+    board = Board(num_rows=3, num_cols=5, pre_seeded_values=pre_seeded_values)
 
     # act
     board.update_board_cells()
@@ -97,7 +97,7 @@ def test_board_grid_cells_3x5_many_multi_generation_infinite():
          [1, 1, 0, 0, 0]]
     )
 
-    board = Board2d(num_rows=3, num_cols=5, pre_seeded_values=pre_seeded_values)
+    board = Board(num_rows=3, num_cols=5, pre_seeded_values=pre_seeded_values)
 
     # act
     board.update_board_cells()
@@ -128,7 +128,7 @@ def test_board_grid_cells_3x5_many_multi_generation_rotation():
          [0, 0, 0, 0, 0]]
     )
 
-    board = Board2d(num_rows=3, num_cols=5, pre_seeded_values=pre_seeded_values)
+    board = Board(num_rows=3, num_cols=5, pre_seeded_values=pre_seeded_values)
 
     # act + assert
     expected_cell_values = (
