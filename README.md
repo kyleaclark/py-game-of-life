@@ -24,6 +24,8 @@ Note: Instructions are specific to macOS. Steps may vary.
 1. Set python version within the repo directory: `pyenv local 3.10.5`
 2. Set the poetry env version of python: `poetry env use ~/.pyenv/versions/3.10.5/bin/python`
 3. Install python application dependencies: `poetry install`
+4. Run application: `poetry run python main.py`
+5. Run tests: `poetry run python -m pytest -p no:cacheprovider tests`
 
 #### Optional: PyCharm Setup
 
@@ -32,24 +34,6 @@ Note: Instructions are specific to macOS. Steps may vary.
 3. Open Tools > Python Integrated Tools > Default test runner: pytest
 4. Run `app/main.py`
 5. Run `tests`
-
-___
-
-### Docker Build
-
-#### Docker Build & Run App
-
-```
-docker build --target application -f Dockerfile -t py-debian-poetry .
-docker run --user=appuser --env APP_ENV=DEV py-debian-poetry
-```
-
-#### Docker Build & Run Tests
-
-```
-docker build --target testing -f Dockerfile -t py-debian-poetry .
-docker run --user=appuser --env APP_ENV=DEV py-debian-poetry
-```
 
 ___
 

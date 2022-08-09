@@ -10,8 +10,10 @@ __author__ = 'kyleaclark'
 
 class Animation:
 
-    def __init__(self, board: Board):
+    def __init__(self, board: Board, anim_interval: int = 200, anim_frames: int = 20):
         self._board = board
+        self._anim_interval = anim_interval
+        self._anim_frames = anim_frames
 
     def animate_board_grid(self, save_gif: bool = False, save_mp4: bool = False):
         fig, axes = plt.subplots(figsize=(7, 7))
@@ -41,14 +43,15 @@ class Animation:
 
     def _update_scatter_colors(self):
         sliced_cm = mpl.cm.Blues_r(np.linspace(0, 1, 9))
-        color_map = [sliced_cm[cell.alive_neighbors] for cell in self._board.grid_cells_flattened]
+        color_map = [sliced_cm[cell.live_neighbor_count] for cell in self._board.grid_cells_flattened]
         colors = [(r, g, b, 1) if cell_value else (r, g, b, 0) for cell_value, (r, g, b, a)
                   in zip(self._board.grid_cell_values_flattened, color_map)]
 
         self._scatter.set_facecolor(colors)
 
     def _create_animation(self, fig):
-        self._ani = animation.FuncAnimation(fig, self._compute_animation, interval=100, frames=20)
+        self._anim = animation.FuncAnimation(
+            fig, self._compute_animation, interval=self._anim_interval, frames=self._anim_frames)
 
     def _compute_animation(self, _):
         self._board.update_board_cells()
@@ -58,8 +61,8 @@ class Animation:
 
     def _save_animation_gif(self):
         print('Saving animation gif...')
-        self._ani.save('game-of-life-animation.gif', writer='pillow')
+        self._anim.save('game-of-life-animation.gif', writer='pillow')
 
     def _save_animation_mp4(self):
         print('Saving animation mp4...')
-        self._ani.save(f'game_of_life.mp4', writer=animation.FFMpegFileWriter())
+        self._anim.save(f'game_of_life.mp4', writer=animation.FFMpegFileWriter())

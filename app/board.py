@@ -72,7 +72,7 @@ class Board:
         for row in range(len(self._grid)):
             for col in range(len(self._grid[row])):
                 cell = self._get_cell(row, col)
-                cell.alive_neighbors = self._sum_living_neighbors(row, col)
+                cell.live_neighbor_count = self._sum_living_neighbors(row, col)
 
     def _get_cell(self, row_idx: int, col_idx) -> Cell:
         return self._grid[row_idx][col_idx]

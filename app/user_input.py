@@ -18,11 +18,11 @@ def request_board_size() -> Tuple[int, int]:
 
 
 def request_game_action() -> str:
-    print('Press enter to simulate the next generation, r to restart, or q to quit:')
+    print('Press enter to continue, r to restart, or q to quit:')
     return input('')
 
 
-def get_simulate_action_key() -> str:
+def get_continue_action_key() -> str:
     return ''
 
 

@@ -5,20 +5,20 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
 
-from app.board1d import Board1d
 from app.board import Board
 
 __author__ = 'kyleaclark'
 
 
-def draw_board_grid(board: Board1d):
+def draw_board_grid(board: Board):
     print('')
-    for cell_idx, cell in enumerate(board._grid):
-        character = ' 1 ' if cell.is_alive() else ' . '
-        print(character, end='')
+    for row_idx, row in enumerate(board._grid):
+        for cell_idx, cell in enumerate(row):
+            character = ' 1 ' if cell.is_alive() else ' . '
+            print(character, end='')
 
-        if board.is_last_col(cell_idx):
-            print('')
+        # if board.is_last_col(cell_idx):
+        #     print('')
 
     print('')
 
@@ -58,7 +58,7 @@ def _update_animation(board, scatter, _):
 def _generate_cell_colors(board: Board, scatter):
     cmap = mpl.cm.Blues_r
     sliced_cm = cmap(np.linspace(0, 1, 9))
-    color_map = [sliced_cm[cell.alive_neighbors] for cell in board.grid_cells_flattened]
+    color_map = [sliced_cm[cell.live_neighbor_count] for cell in board.grid_cells_flattened]
     colors = [(r, g, b, 1) if cell_value else (r, g, b, 0) for cell_value, (r, g, b, a)
               in zip(board.grid_cell_values_flattened, color_map)]
 
