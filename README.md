@@ -1,9 +1,27 @@
-# Python Debian Poetry Template
+# Py-Game-of-Life
 
-- Python 3.10.5
-- Poetry dependency management  
-- Base Docker image: python:3.10.5-bullseye (debian)
 - Authored by Kyle Clark - [kyleaclark.com](https://kyleaclark.com)
+- Python 3.10.5
+- Poetry dependency management
+
+### Game of Life
+
+#### Overview
+
+- Game of Life is similar to Game of Thrones, except they're not really the same.
+- Game of Life was created by mathematician John Conway in 1970 as a way to represent the interactions of cells.
+- Played on a two-dimensional grid with a maximum of 8 neighbours for a grid square.
+- Zero-player game determined by the initial random state of cells alive or dead.  
+- Subsequent states are determined by a set of rules.
+
+#### Rules
+
+1. Any live cell with 2 or 3 live neighbours lives on to the next generation (survival).
+2. Any live cell with fewer than 2 live neighbours dies (under-population).
+3. Any live cell with more than 3 live neighbors dies (overcrowding).
+4. Any dead cell with exactly 3 live neighbors evolves into a live cell (reproduction).
+5. Each cell lives or dies independently (non-sequentially) in a generational evolution.
+
 
 ### Local Environment
 
@@ -41,7 +59,7 @@ Note: Instructions are specific to macOS. Steps may vary.
 
 ___
 
-### Poetry Commands
+### Poetry Reference
 
 - Poetry documentation - https://python-poetry.org/docs/
 - `poetry install` - Install dependencies from poetry.lock - https://python-poetry.org/docs/cli/#install
