@@ -5,7 +5,7 @@ class Cell:
 
     def __init__(self):
         self._state = 0
-        self.live_neighbor_count = 0
+        self.alive_neighbors = 0
 
     @property
     def state(self) -> int:

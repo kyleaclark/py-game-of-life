@@ -1,6 +1,9 @@
-import matplotlib as mpl
-import matplotlib.pyplot as plt
+from functools import partial
+from typing import List
+
 import matplotlib.animation as animation
+import matplotlib.cm as colormap
+import matplotlib.pyplot as plt
 import numpy as np
 
 from app.board import Board
@@ -8,61 +11,43 @@ from app.board import Board
 __author__ = 'kyleaclark'
 
 
-class Animation:
+def animate_board_grid(board: Board, save_gif: bool = False, save_mp4: bool = False):
+    fig, axes = plt.subplots(figsize=(7, 7))
 
-    def __init__(self, board: Board, anim_interval: int = 200, anim_frames: int = 20):
-        self._board = board
-        self._anim_interval = anim_interval
-        self._anim_frames = anim_frames
+    axes.set_facecolor('black')
+    axes.get_xaxis().set_visible(False)
+    axes.get_yaxis().set_visible(False)
 
-    def animate_board_grid(self, save_gif: bool = False, save_mp4: bool = False):
-        fig, axes = plt.subplots(figsize=(7, 7))
+    np_array = np.array(board.grid_cell_values)
+    x_grid, y_grid = np.meshgrid(np.arange(np_array.shape[1]), np.arange(np_array.shape[0]))
+    scatter = axes.scatter(x_grid[np_array >= 0], y_grid[np_array >= 0], s=60, edgecolor=None)
 
-        self._stylize_plot(axes)
-        self._create_scatter(axes)
-        self._update_scatter_colors()
-        self._create_animation(fig)
+    colors = _generate_cell_colors(board)
+    scatter.set_facecolor(colors)
 
-        if save_gif:
-            self._save_animation_gif()
-        elif save_mp4:
-            self._save_animation_mp4()
-        else:
-            plt.show()
+    ani = animation.FuncAnimation(fig, partial(_update_animation, board, scatter), interval=200, frames=20)
 
-    def _stylize_plot(self, axes):
-        axes.set_title('Conway\'s Game of Life', fontweight='bold')
-        axes.set_facecolor('black')
-        axes.get_xaxis().set_visible(False)
-        axes.get_yaxis().set_visible(False)
+    if save_gif:
+        ani.save('game-of-life.gif', writer='pillow')
 
-    def _create_scatter(self, axes):
-        np_array = np.array(self._board.grid_cell_values)
-        x_grid, y_grid = np.meshgrid(np.arange(np_array.shape[1]), np.arange(np_array.shape[0]))
-        self._scatter = axes.scatter(x_grid[np_array >= 0], y_grid[np_array >= 0], s=60, edgecolor=None)
+    if save_mp4:
+        ani.save(f'game-of-life.mp4', writer=animation.FFMpegFileWriter())
 
-    def _update_scatter_colors(self):
-        sliced_cm = mpl.cm.Blues_r(np.linspace(0, 1, 9))
-        color_map = [sliced_cm[cell.live_neighbor_count] for cell in self._board.grid_cells_flattened]
-        colors = [(r, g, b, 1) if cell_value else (r, g, b, 0) for cell_value, (r, g, b, a)
-                  in zip(self._board.grid_cell_values_flattened, color_map)]
+    if not save_gif and not save_mp4:
+        plt.show()
 
-        self._scatter.set_facecolor(colors)
 
-    def _create_animation(self, fig):
-        self._anim = animation.FuncAnimation(
-            fig, self._compute_animation, interval=self._anim_interval, frames=self._anim_frames)
+def _update_animation(board: Board, scatter: plt.scatter, *_) -> plt.scatter:
+    board.update_board_cells()
+    scatter.set_facecolor(_generate_cell_colors(board))
 
-    def _compute_animation(self, _):
-        self._board.update_board_cells()
-        self._update_scatter_colors()
+    return scatter
 
-        return self._scatter
 
-    def _save_animation_gif(self):
-        print('Saving animation gif...')
-        self._anim.save('game-of-life-animation.gif', writer='pillow')
+def _generate_cell_colors(board: Board) -> List[tuple]:
+    sliced_cm = colormap.Blues_r(np.linspace(0, 1, 9))
+    grid_color_map = [sliced_cm[cell.alive_neighbors] for cell in board.grid_cells_flattened]
+    result = [(r, g, b, 1) if cell_value else (r, g, b, 0) for cell_value, (r, g, b, a)
+              in zip(board.grid_cell_values_flattened, grid_color_map)]
 
-    def _save_animation_mp4(self):
-        print('Saving animation mp4...')
-        self._anim.save(f'game_of_life.mp4', writer=animation.FFMpegFileWriter())
+    return result

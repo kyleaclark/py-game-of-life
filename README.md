@@ -24,16 +24,20 @@ Note: Instructions are specific to macOS. Steps may vary.
 1. Set python version within the repo directory: `pyenv local 3.10.5`
 2. Set the poetry env version of python: `poetry env use ~/.pyenv/versions/3.10.5/bin/python`
 3. Install python application dependencies: `poetry install`
-4. Run application: `poetry run python main.py`
-5. Run tests: `poetry run python -m pytest -p no:cacheprovider tests`
+   
+### Python Execution
+4. Run text game via terminal: `poetry run python run_text_game.py`
+5. Run simulated animation via terminal: `poetry run python run_simulated_animation.py`   
+5. Run tests via terminal: `poetry run python -m pytest -p no:cacheprovider tests`
 
 #### Optional: PyCharm Setup
 
 1. Open PyCharm Preferences
 2. Open Project Interpeter > Add existing Virtualenv Environment e.g. `/Users/<username>/Library/Caches/pypoetry/virtualenvs/<poetry-name>/bin/python`
 3. Open Tools > Python Integrated Tools > Default test runner: pytest
-4. Run `app/main.py`
-5. Run `tests`
+4. Run text game: Right-click on `run_text_game.py` and choose Run
+5. Run simulated animation: Right-click on `run_simulated_animation.py` and choose Run
+6. Run tests via pytest: Right-click on `tests` and choose Run
 
 ___
 
