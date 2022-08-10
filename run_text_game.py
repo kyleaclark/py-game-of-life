@@ -2,7 +2,7 @@ import sys
 
 from app.animation import animate_board_grid
 from app.board import Board
-from app.text_display import draw_board_grid
+from app.text_display import print_board_grid
 from app.user_input import get_continue_action_key, get_restart_action_key, get_quit_action_key
 from app.user_input import request_game_action, request_board_size
 
@@ -33,18 +33,18 @@ def run_animated_simulation(save_gif: bool = False, save_mp4: bool = False):
 
 def run_text_game():
     board = _create_board_interactively()
-    draw_board_grid(board)
+    print_board_grid(board)
 
     while True:
         user_action_key = request_game_action()
 
         if user_action_key == get_continue_action_key():
             board.update_board_cells()
-            draw_board_grid(board)
+            print_board_grid(board)
         elif user_action_key == get_restart_action_key():
             print('\n')
             board = _create_board_interactively()
-            draw_board_grid(board)
+            print_board_grid(board)
         elif user_action_key == get_quit_action_key():
             break
 

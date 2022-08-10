@@ -1,6 +1,5 @@
 from itertools import chain
 
-from random import randint
 from typing import List
 
 from app.cell import Cell
@@ -97,13 +96,11 @@ class Board:
         for row_idx, cells in enumerate(self._grid):
             for col_idx, cell in enumerate(cells):
                 try:
-                    #seed_idx = (row_idx * self._num_cols) + col_idx
-                    seed_value = pre_seeded_values[row_idx][col_idx] if pre_seeded_values else randint(0, 2)
+                    seed_value = pre_seeded_values[row_idx][col_idx] if pre_seeded_values else None
                 except IndexError:
-                    seed_value = randint(0, 1)  # 50% chance
+                    seed_value = None
 
-                if seed_value == 1:
-                    cell.set_alive()
+                cell.set_initial_state(seed_value)
 
     @staticmethod
     def _generate_grid(num_rows: int, num_cols: int) -> List[List[Cell]]:
