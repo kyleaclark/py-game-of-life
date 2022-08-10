@@ -1,6 +1,7 @@
 # Py-Game-of-Life
 
 - Authored by Kyle Clark - [kyleaclark.com](https://kyleaclark.com)
+- Run application as a text game or simulated animation
 
 ### Game of Life
 
@@ -44,7 +45,7 @@ ___
 2. Set the poetry env version of python: `poetry env use ~/.pyenv/versions/3.10.5/bin/python`
 3. Install python application dependencies: `poetry install`
    
-### Python Execution
+#### Python Execution
 4. Run text game via terminal: `poetry run python run_text_game.py`
 5. Run simulated animation via terminal: `poetry run python run_simulated_animation.py`   
 5. Run tests via terminal: `poetry run python -m pytest -p no:cacheprovider tests`
