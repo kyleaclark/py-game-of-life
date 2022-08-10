@@ -1,8 +1,6 @@
 # Py-Game-of-Life
 
 - Authored by Kyle Clark - [kyleaclark.com](https://kyleaclark.com)
-- Python 3.10.5
-- Poetry dependency management
 
 ### Game of Life
 
@@ -22,12 +20,15 @@
 4. Any dead cell with exactly 3 live neighbors evolves into a live cell (reproduction).
 5. Each cell lives or dies independently (non-sequentially) in a generational evolution.
 
+___
 
-### Local Environment
+### App Environment
 
-Note: Instructions are specific to macOS. Steps may vary.
+- Python 3.10.5
+- Poetry dependency management
+- Setup instructions are specific to macOS. Steps may vary.
 
-#### Prerequisites
+#### Setup Prerequisites
 
 1. Install pyenv for python version management - https://github.com/pyenv/pyenv
 2. Update pyenv if previously installed e.g. via brew `brew upgrade pyenv`
