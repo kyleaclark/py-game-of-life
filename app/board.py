@@ -1,7 +1,5 @@
 from itertools import chain
 
-from typing import List
-
 from app.cell import Cell
 
 __author__ = 'kyleaclark'
@@ -9,7 +7,7 @@ __author__ = 'kyleaclark'
 
 class Board:
 
-    def __init__(self, num_rows: int, num_cols: int, pre_seeded_values: List[List[int]] = None):
+    def __init__(self, num_rows: int, num_cols: int, pre_seeded_values: list[list[int]] = None):
         self._num_rows = num_rows
         self._num_cols = num_cols
         self._grid = self._generate_grid(num_rows, num_cols)
@@ -17,15 +15,15 @@ class Board:
         self._update_alive_neighbors()
 
     @property
-    def grid_cells_flattened(self) -> List[Cell]:
+    def grid_cells_flattened(self) -> list[Cell]:
         return list(chain.from_iterable(self._grid))
 
     @property
-    def grid_cell_values(self) -> List[List[int]]:
+    def grid_cell_values(self) -> list[list[int]]:
         return [[cell.state for cell in row] for row in self._grid]
 
     @property
-    def grid_cell_values_flattened(self) -> List[int]:
+    def grid_cell_values_flattened(self) -> list[int]:
         return list(chain.from_iterable(self.grid_cell_values))
 
     def update_board_cells(self):
@@ -92,7 +90,7 @@ class Board:
 
         return result
 
-    def _seed_grid_cells(self, pre_seeded_values: List[List[int]] = None):
+    def _seed_grid_cells(self, pre_seeded_values: list[list[int]] = None):
         for row_idx, cells in enumerate(self._grid):
             for col_idx, cell in enumerate(cells):
                 try:
@@ -103,5 +101,5 @@ class Board:
                 cell.set_initial_state(seed_value)
 
     @staticmethod
-    def _generate_grid(num_rows: int, num_cols: int) -> List[List[Cell]]:
+    def _generate_grid(num_rows: int, num_cols: int) -> list[list[Cell]]:
         return [[Cell() for _ in range(num_cols)] for _ in range(num_rows)]

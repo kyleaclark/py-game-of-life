@@ -1,9 +1,7 @@
-from typing import Tuple
-
 __author__ = 'kyleaclark'
 
 
-def request_board_size() -> Tuple[int, int]:
+def request_board_size() -> tuple[int, int]:
     min_length = 3
     max_length = 10
 

@@ -1,5 +1,4 @@
 from functools import partial
-from typing import List
 
 import matplotlib.animation as animation
 import matplotlib.cm as colormap
@@ -44,7 +43,7 @@ def _update_animation(board: Board, scatter: plt.scatter, *_) -> plt.scatter:
     return scatter
 
 
-def _generate_cell_colors(board: Board) -> List[tuple]:
+def _generate_cell_colors(board: Board) -> list[tuple]:
     sliced_cm = colormap.Blues_r(np.linspace(0, 1, 9))
     grid_color_map = [sliced_cm[cell.alive_neighbors] for cell in board.grid_cells_flattened]
     result = [(r, g, b, 1) if cell_value else (r, g, b, 0) for cell_value, (r, g, b, a)
