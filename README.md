@@ -25,7 +25,7 @@ ___
 
 ### App Environment
 
-- Python 3.10.5
+- Python 3.10.6
 - Poetry dependency management
 - Setup instructions are specific to macOS. Steps may vary.
 
@@ -37,12 +37,12 @@ ___
 4. Update poetry if necessary (optional): `poetry self update`
 4. Add pyenv path to profile e.g. add `export PYENV_ROOT="$HOME/.pyenv` + `export PATH="$PYENV_ROOT/bin:$PATH"`
 5. Add poetry path to profile e.g. add `export PATH="$HOME/.poetry/bin/:PATH`
-6. Install python version: `pyenv install 3.10.5`
+6. Install python version: `pyenv install 3.10.6`
 
 #### Python Environment
 
-1. Set python version within the repo directory: `pyenv local 3.10.5`
-2. Set the poetry env version of python: `poetry env use ~/.pyenv/versions/3.10.5/bin/python`
+1. Set python version within the repo directory: `pyenv local 3.10.6`
+2. Set the poetry env version of python: `poetry env use ~/.pyenv/versions/3.10.6/bin/python`
 3. Install python application dependencies: `poetry install`
    
 #### Python Execution

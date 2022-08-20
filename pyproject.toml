@@ -5,7 +5,7 @@ description = "Poetry specification for library dependencies"
 authors = ["Kyle Clark <github.com/kyleaclark>"]
 
 [tool.poetry.dependencies]
-python = "~3.10"
+python = "3.10.6"
 matplotlib = "^3.5.2"
 
 [tool.poetry.dev-dependencies]
