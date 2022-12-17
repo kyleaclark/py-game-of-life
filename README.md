@@ -25,7 +25,7 @@ ___
 
 ### App Environment
 
-- Python 3.10.6
+- Python 3.11.1
 - Poetry dependency management
 - Setup instructions are specific to macOS. Steps may vary.
 
@@ -37,17 +37,17 @@ ___
 4. Update poetry if necessary (optional): `poetry self update`
 4. Add pyenv path to profile e.g. add `export PYENV_ROOT="$HOME/.pyenv` + `export PATH="$PYENV_ROOT/bin:$PATH"`
 5. Add poetry path to profile e.g. add `export PATH="$HOME/.poetry/bin/:PATH`
-6. Install python version: `pyenv install 3.10.6`
+6. Install python version: `pyenv install 3.11.1`
 
 #### Python Environment
 
-1. Set python version within the repo directory: `pyenv local 3.10.6`
-2. Set the poetry env version of python: `poetry env use ~/.pyenv/versions/3.10.6/bin/python`
+1. Set python version within the repo directory: `pyenv local 3.11.1`
+2. Set the poetry env version of python: `poetry env use ~/.pyenv/versions/3.11.1/bin/python`
 3. Install python application dependencies: `poetry install`
    
 #### Python Execution
-4. Run text game via terminal: `poetry run python run_text_game.py`
-5. Run simulated animation via terminal: `poetry run python run_simulated_animation.py`   
+4. Run text game via terminal: `poetry run python main_text.py`
+5. Run simulated animation via terminal: `poetry run python main_simulation.py`   
 5. Run tests via terminal: `poetry run python -m pytest -p no:cacheprovider tests`
 
 #### Optional: PyCharm Setup
@@ -55,8 +55,8 @@ ___
 1. Open PyCharm Preferences
 2. Open Project Interpeter > Add existing Virtualenv Environment e.g. `/Users/<username>/Library/Caches/pypoetry/virtualenvs/<poetry-name>/bin/python`
 3. Open Tools > Python Integrated Tools > Default test runner: pytest
-4. Run text game: Right-click on `run_text_game.py` and choose Run
-5. Run simulated animation: Right-click on `run_simulated_animation.py` and choose Run
+4. Run text game: Right-click on `main_text.py` and choose Run
+5. Run simulated animation: Right-click on `main_simulation.py` and choose Run
 6. Run tests via pytest: Right-click on `tests` and choose Run
 
 ___

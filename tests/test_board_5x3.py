@@ -1,7 +1,5 @@
 from app.board import Board
 
-__author__ = 'kyleaclark'
-
 
 def test_board_grid_cells_5x3_empty():
     # arrange
