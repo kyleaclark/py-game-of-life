@@ -25,7 +25,7 @@ def test_board_grid_cells_5x3_empty():
          [0, 0, 0],
          [0, 0, 0]]
     )
-    assert board.grid_cell_values == expected_cell_values
+    assert board.grid_cell_states == expected_cell_values
 
 
 def test_board_grid_cells_5x3_one():
@@ -50,7 +50,7 @@ def test_board_grid_cells_5x3_one():
          [0, 0, 0],
          [0, 0, 0]]
     )
-    assert board.grid_cell_values == expected_cell_values
+    assert board.grid_cell_states == expected_cell_values
 
 
 
@@ -76,7 +76,7 @@ def test_board_grid_cells_5x3_two():
          [0, 0, 0],
          [0, 0, 0]]
     )
-    assert board.grid_cell_values == expected_cell_values
+    assert board.grid_cell_states == expected_cell_values
 
 
 def test_board_grid_cells_5x3_many():
@@ -102,7 +102,7 @@ def test_board_grid_cells_5x3_many():
          [0, 0, 0]]
     )
 
-    assert board.grid_cell_values == expected_cell_values
+    assert board.grid_cell_states == expected_cell_values
 
 
 def test_board_grid_cells_5x3_many_multi_generation_infinite():
@@ -131,13 +131,13 @@ def test_board_grid_cells_5x3_many_multi_generation_infinite():
     )
 
     board.update_board_cells()
-    assert board.grid_cell_values == expected_cell_values
+    assert board.grid_cell_states == expected_cell_values
 
     board.update_board_cells()
-    assert board.grid_cell_values == expected_cell_values
+    assert board.grid_cell_states == expected_cell_values
 
     board.update_board_cells()
-    assert board.grid_cell_values == expected_cell_values
+    assert board.grid_cell_states == expected_cell_values
 
 
 def test_board_grid_cells_5x3_many_multi_generation_rotation():
@@ -162,10 +162,10 @@ def test_board_grid_cells_5x3_many_multi_generation_rotation():
     )
 
     board.update_board_cells()
-    assert board.grid_cell_values == expected_cell_values
+    assert board.grid_cell_states == expected_cell_values
 
     board.update_board_cells()
-    assert board.grid_cell_values == pre_seeded_values
+    assert board.grid_cell_states == pre_seeded_values
 
     board.update_board_cells()
-    assert board.grid_cell_values == expected_cell_values
+    assert board.grid_cell_states == expected_cell_values

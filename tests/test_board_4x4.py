@@ -23,7 +23,7 @@ def test_board_grid_cells_4x4_empty():
          [0, 0, 0, 0],
          [0, 0, 0, 0]]
     )
-    assert board.grid_cell_values == expected_cell_values
+    assert board.grid_cell_states == expected_cell_values
 
 
 def test_board_grid_cells_4x4_one():
@@ -46,7 +46,7 @@ def test_board_grid_cells_4x4_one():
          [0, 0, 0, 0],
          [0, 0, 0, 0]]
     )
-    assert board.grid_cell_values == expected_cell_values
+    assert board.grid_cell_states == expected_cell_values
 
 
 
@@ -70,7 +70,7 @@ def test_board_grid_cells_4x4_two():
          [0, 0, 0, 0],
          [0, 0, 0, 0]]
     )
-    assert board.grid_cell_values == expected_cell_values
+    assert board.grid_cell_states == expected_cell_values
 
 
 def test_board_grid_cells_4x4_many():
@@ -94,7 +94,7 @@ def test_board_grid_cells_4x4_many():
          [0, 0, 0, 0]]
     )
 
-    assert board.grid_cell_values == expected_cell_values
+    assert board.grid_cell_states == expected_cell_values
 
 
 def test_board_grid_cells_4x4_many_multi_generation():
@@ -118,7 +118,7 @@ def test_board_grid_cells_4x4_many_multi_generation():
          [0, 0, 0, 0]]
     )
 
-    assert board.grid_cell_values == expected_cell_values
+    assert board.grid_cell_states == expected_cell_values
 
 
 def test_board_grid_cells_4x4_many_multi_generation_infinite():
@@ -141,10 +141,10 @@ def test_board_grid_cells_4x4_many_multi_generation_infinite():
     )
 
     board.update_board_cells()
-    assert board.grid_cell_values == expected_cell_values
+    assert board.grid_cell_states == expected_cell_values
 
     board.update_board_cells()
-    assert board.grid_cell_values == expected_cell_values
+    assert board.grid_cell_states == expected_cell_values
 
     board.update_board_cells()
-    assert board.grid_cell_values == expected_cell_values
+    assert board.grid_cell_states == expected_cell_values

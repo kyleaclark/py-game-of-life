@@ -1,7 +1,6 @@
-__author__ = 'kyleaclark'
-
-
 def request_board_size() -> tuple[int, int]:
+    """Return row/col board size tuple given user input value for row and column length"""
+
     min_length = 3
     max_length = 10
 
@@ -16,21 +15,12 @@ def request_board_size() -> tuple[int, int]:
 
 
 def request_game_action() -> str:
-    print('Press enter to continue, r to restart, or q to quit:')
-    return input('')
+    """Return user input value for next game action"""
 
-
-def get_continue_action_key() -> str:
-    return ''
-
-
-def get_restart_action_key() -> str:
-    return 'r'
-
-
-def get_quit_action_key() -> str:
-    return 'q'
+    return input('Press enter to continue, r to restart, or q to quit: ')
 
 
 def _bound_number(number: int, min_num: int, max_num: int) -> int:
+    """Return a bounded number between min-max"""
+
     return max(min_num, min(number, max_num))

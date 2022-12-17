@@ -2,29 +2,28 @@ from itertools import chain
 
 from app.cell import Cell
 
-__author__ = 'kyleaclark'
-
 
 class Board:
 
     def __init__(self, num_rows: int, num_cols: int, pre_seeded_values: list[list[int]] = None):
         self._num_rows = num_rows
         self._num_cols = num_cols
-        self._grid = self._generate_grid(num_rows, num_cols)
+        self.grid = self._generate_grid(num_rows, num_cols)
+
         self._seed_grid_cells(pre_seeded_values)
         self._update_alive_neighbors()
 
     @property
     def grid_cells_flattened(self) -> list[Cell]:
-        return list(chain.from_iterable(self._grid))
+        return list(chain.from_iterable(self.grid))
 
     @property
-    def grid_cell_values(self) -> list[list[int]]:
-        return [[cell.state for cell in row] for row in self._grid]
+    def grid_cell_states(self) -> list[list[int]]:
+        return [[cell.state for cell in row] for row in self.grid]
 
     @property
-    def grid_cell_values_flattened(self) -> list[int]:
-        return list(chain.from_iterable(self.grid_cell_values))
+    def grid_cell_states_flattened(self) -> list[int]:
+        return list(chain.from_iterable(self.grid_cell_states))
 
     def update_board_cells(self):
         self._update_cell_states()
@@ -34,8 +33,8 @@ class Board:
         alive_cells = []
         dead_cells = []
 
-        for row in range(len(self._grid)):
-            for col in range(len(self._grid[row])):
+        for row in range(len(self.grid)):
+            for col in range(len(self.grid[row])):
                 cell = self._get_cell(row, col)
 
                 alive_neighbors = self._sum_alive_neighbors(row, col)
@@ -52,6 +51,12 @@ class Board:
         for cell in dead_cells:
             cell.set_dead()
 
+    def _update_alive_neighbors(self):
+        for row in range(len(self.grid)):
+            for col in range(len(self.grid[row])):
+                cell = self._get_cell(row, col)
+                cell.alive_neighbors = self._sum_alive_neighbors(row, col)
+
     def _sum_alive_neighbors(self, cell_row_idx: int, cell_col_idx: int) -> int:
         result = 0
         for neighbour_row_idx in range(cell_row_idx - 1, cell_row_idx + 2):
@@ -67,14 +72,8 @@ class Board:
 
         return result
 
-    def _update_alive_neighbors(self):
-        for row in range(len(self._grid)):
-            for col in range(len(self._grid[row])):
-                cell = self._get_cell(row, col)
-                cell.alive_neighbors = self._sum_alive_neighbors(row, col)
-
     def _get_cell(self, row_idx: int, col_idx) -> Cell:
-        return self._grid[row_idx][col_idx]
+        return self.grid[row_idx][col_idx]
 
     def _is_invalid_row(self, neighbor_row_idx: int):
         return neighbor_row_idx < 0 or neighbor_row_idx >= self._num_rows
@@ -91,7 +90,7 @@ class Board:
         return result
 
     def _seed_grid_cells(self, pre_seeded_values: list[list[int]] = None):
-        for row_idx, cells in enumerate(self._grid):
+        for row_idx, cells in enumerate(self.grid):
             for col_idx, cell in enumerate(cells):
                 try:
                     seed_value = pre_seeded_values[row_idx][col_idx] if pre_seeded_values else None
