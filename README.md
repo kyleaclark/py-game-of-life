@@ -1,13 +1,12 @@
 # Py-Game-of-Life
 
 - Authored by Kyle Clark - [kyleaclark.com](https://kyleaclark.com)
-- Run application as a text game or simulated animation
+- Run application as either interactive text-based or animated simulation
 
 ### Game of Life
 
 #### Overview
 
-- Game of Life is similar to Game of Thrones, except they're not really the same.
 - Game of Life was created by mathematician John Conway in 1970 as a way to represent the interactions of cells.
 - Played on a two-dimensional grid with a maximum of 8 neighbours for a grid square.
 - Zero-player game determined by the initial random state of cells alive or dead.  
@@ -27,7 +26,8 @@ ___
 
 - Python 3.11.1
 - Poetry dependency management
-- Setup instructions are specific to macOS. Steps may vary.
+- Setup instructions are specific to macOS. Steps may vary. 
+- Refer to official documentation from Python, pyenv, and poetry for installation instructions.
 
 #### Setup Prerequisites
 
