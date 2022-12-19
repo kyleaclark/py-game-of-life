@@ -9,6 +9,8 @@ class Cell:
         self.alive_neighbors = 0
 
     def set_initial_state(self, seed_value: Union[int, bool] = None):
+        """Randomly set initial cell state or use given seed value"""
+
         max_randint = 2
         initial_state = int(bool(seed_value)) * max_randint \
             if seed_value is not None else randint(0, max_randint)

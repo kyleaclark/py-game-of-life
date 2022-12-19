@@ -1,12 +1,17 @@
 def request_board_size() -> tuple[int, int]:
-    """Return row/col board size tuple given user input value for row and column length"""
+    """Return board size tuple given user input value for row/col"""
 
+    # Set min/max values for board row & col length
     min_length = 3
     max_length = 10
 
-    rows_input = input(f'Input a number of rows between {min_length} to {max_length}: ')
-    columns_input = input(f'Input a number of rows between {min_length} to {max_length}: ')
+    # Request user input for board row & col length
+    rows_input = input(
+        f'Input a number of rows between {min_length} to {max_length}: ')
+    columns_input = input(
+        f'Input a number of rows between {min_length} to {max_length}: ')
 
+    # Create board size tuple from bounded user input values
     board_rows = _bound_number(int(rows_input), min_length, max_length)
     board_columns = _bound_number(int(columns_input), min_length, max_length)
     result = board_rows, board_columns

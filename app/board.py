@@ -5,46 +5,65 @@ from app.cell import Cell
 
 class Board:
 
-    def __init__(self, num_rows: int, num_cols: int, pre_seeded_values: list[list[int]] = None):
+    def __init__(self,
+                 num_rows: int,
+                 num_cols: int,
+                 pre_seeded_values: list[list[int]] = None):
+        """Initialize board object"""
+
         self._num_rows = num_rows
         self._num_cols = num_cols
         self.grid = self._generate_grid(num_rows, num_cols)
-
         self._seed_grid_cells(pre_seeded_values)
         self._update_alive_neighbors()
 
     @property
     def grid_cells_flattened(self) -> list[Cell]:
+        """Return a flattened list of grid cells"""
+
         return list(chain.from_iterable(self.grid))
 
     @property
     def grid_cell_states(self) -> list[list[int]]:
+        """Return a 2d list of grid cell state values"""
+
         return [[cell.state for cell in row] for row in self.grid]
 
     @property
     def grid_cell_states_flattened(self) -> list[int]:
+        """Return a flattened list of grid cell state values"""
+
         return list(chain.from_iterable(self.grid_cell_states))
 
     def update_board_cells(self):
+        """Update board cells for next generation"""
+
         self._update_cell_states()
         self._update_alive_neighbors()
 
     def _update_cell_states(self):
+        """Update grid cell state values for next generation"""
+
+        # Collections to bucket next generation states of grid cells
         alive_cells = []
         dead_cells = []
 
+        # Iterate through grid cells to independently compute the next
+        # generation state of a cell one at a time
         for row in range(len(self.grid)):
             for col in range(len(self.grid[row])):
                 cell = self._get_cell(row, col)
 
                 alive_neighbors = self._sum_alive_neighbors(row, col)
 
+                # Apply game of life logic for cell next gen state
                 if cell.is_alive():
                     if alive_neighbors < 2 or alive_neighbors > 3:
                         dead_cells.append(cell)
                 elif alive_neighbors == 3:
                     alive_cells.append(cell)
 
+        # Lastly update cell states given their next gen bucket state
         for cell in alive_cells:
             cell.set_alive()
 
@@ -64,10 +83,12 @@ class Board:
                 continue
 
             for neighbor_col_idx in range(cell_col_idx - 1, cell_col_idx + 2):
-                if self._is_invalid_col(cell_row_idx, cell_col_idx, neighbour_row_idx, neighbor_col_idx):
+                if self._is_invalid_col(cell_row_idx, cell_col_idx,
+                                        neighbour_row_idx, neighbor_col_idx):
                     continue
 
-                if self._get_cell(neighbour_row_idx, neighbor_col_idx).is_alive():
+                if self._get_cell(neighbour_row_idx,
+                                  neighbor_col_idx).is_alive():
                     result += 1
 
         return result
@@ -85,7 +106,8 @@ class Board:
                         neighbor_col_idx: int) -> bool:
         result = ((neighbor_col_idx < 0) or
                   (neighbor_col_idx >= self._num_cols) or
-                  (cell_row_idx == neighbor_row_idx and cell_col_idx == neighbor_col_idx))
+                  (cell_row_idx == neighbor_row_idx
+                   and cell_col_idx == neighbor_col_idx))
 
         return result
 
@@ -93,7 +115,8 @@ class Board:
         for row_idx, cells in enumerate(self.grid):
             for col_idx, cell in enumerate(cells):
                 try:
-                    seed_value = pre_seeded_values[row_idx][col_idx] if pre_seeded_values else None
+                    seed_value = pre_seeded_values[row_idx][col_idx] \
+                        if pre_seeded_values else None
                 except IndexError:
                     seed_value = None
 

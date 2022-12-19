@@ -9,7 +9,9 @@ from matplotlib.axes import Axes
 from app.board import Board
 
 
-def animate_board_grid(board: Board, save_gif: bool = False, save_mp4: bool = False):
+def animate_board_grid(board: Board,
+                       save_gif: bool = False,
+                       save_mp4: bool = False):
     """Animate board grid for visual display of simulation"""
 
     # Use matplotlib to create a figure and subplot axes object
@@ -27,8 +29,9 @@ def animate_board_grid(board: Board, save_gif: bool = False, save_mp4: bool = Fa
     scatter.set_facecolor(_generate_plot_point_colors(board))
 
     # Create animated scatter plot simulating cell state interactivity
-    ani = animation.FuncAnimation(
-        fig, partial(_update_animation, board, scatter), interval=200, frames=20)
+    ani = animation.FuncAnimation(fig,
+                                  partial(_update_animation, board, scatter),
+                                  interval=200, frames=20)
 
     # Optionally save animation as a gif
     if save_gif:
@@ -51,10 +54,12 @@ def _create_scatter_plot(ax: Axes, grid_values: list[list[int]]):
 
     # Create a rectangular grid of coordinate pairs given two 1d arrays
     # representing x-values (columns) and y-values (rows)
-    x_grid, y_grid = np.meshgrid(np.arange(np_array.shape[1]), np.arange(np_array.shape[0]))
+    x_grid, y_grid = np.meshgrid(np.arange(np_array.shape[1]),
+                                 np.arange(np_array.shape[0]))
 
     # Create a scatter plot given two flattened x and y grids
-    result = ax.scatter(x_grid[np_array >= 0], y_grid[np_array >= 0], s=60, edgecolor=None)
+    result = ax.scatter(x_grid[np_array >= 0], y_grid[np_array >= 0],
+                        s=60, edgecolor=None)
 
     return result
 
@@ -62,16 +67,25 @@ def _create_scatter_plot(ax: Axes, grid_values: list[list[int]]):
 def _generate_plot_point_colors(board: Board) -> list[tuple]:
     """Return plot point colors given cell state & neighbor density"""
 
-    sliced_cm = colormap.Blues_r(np.linspace(0, 1, 9))
-    grid_color_map = [sliced_cm[cell.alive_neighbors] for cell in board.grid_cells_flattened]
-    result = [(r, g, b, 1) if cell_value else (r, g, b, 0) for cell_value, (r, g, b, a)
-              in zip(board.grid_cell_states_flattened, grid_color_map)]
+    # Create segmented linear color map
+    segmented_cm = colormap.Blues_r(np.linspace(0, 1, 9))
+
+    # Create grid of colors from color map given cell neighbor density
+    grid_colors = [segmented_cm[cell.alive_neighbors]
+                   for cell in board.grid_cells_flattened]
+
+    # Map cell alive or dead state value to grid colors visibility
+    result = [(r, g, b, 1) if cell_state else (r, g, b, 0)
+              for cell_state, (r, g, b, a)
+              in zip(board.grid_cell_states_flattened, grid_colors)]
 
     return result
 
 
 def _update_animation(board: Board, scatter: plt.scatter, *_) -> plt.scatter:
     """Return updated scatter after generation of cell interactivity"""
+
+    # Update board cells then apply new scatter plot point colors
     board.update_board_cells()
     scatter.set_facecolor(_generate_plot_point_colors(board))
 

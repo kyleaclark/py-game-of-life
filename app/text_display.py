@@ -2,6 +2,8 @@ from app.board import Board
 
 
 def print_board_grid(board: Board):
+    """Print text-based board grid and cell state values"""
+
     print()  # empty line
 
     for row_idx, row in enumerate(board.grid):
